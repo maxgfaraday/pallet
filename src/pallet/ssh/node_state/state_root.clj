@@ -110,11 +110,10 @@ permissions. Note this is not the final directory."
    (== @errexit 0)))
 
 (defn record
-  "Record a new (version of a) file in state-root"
-  [path state-path md5-path
-   {:keys [max-versions no-versioning versioning]
-    :or {max-versions 5
-         versioning :numbered}}]
+  "Script to record a new (version of a) file in state-root"
+  [path state-path {:keys [max-versions no-versioning versioning]
+                    :or {max-versions 5
+                         versioning :numbered}}]
   (chain-commands
    ;; output the diff between current and new
    (script
@@ -138,7 +137,7 @@ permissions. Note this is not the final directory."
        (xargs (rm "" :force ~true)))))))
 
 (defn record-md5
-  "Record a file's md5"
+  "Script to record a file's md5"
   [path md5-path]
    ;; write the md5 file
   (chain-commands
@@ -153,7 +152,7 @@ permissions. Note this is not the final directory."
     ;; create the state-root dir
     (let [state-path (state-path session state-root path)]
       (create-path-with-template path state-path)
-      (record path state-path (md5-path state-path) options)))
+      (record path state-path options)))
 
   FileChecksum
   (verify-checksum [_ session path]
