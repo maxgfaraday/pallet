@@ -58,7 +58,9 @@
                   {:user (:user environment)}
                   target-map
                   {:service-state service-state
-                   :plan-state plan-state
+                   :plan-state (merge
+                                (:action-options environment)
+                                plan-state)
                    :environment environment}))
               (apply plan-fn args)
               (check-session (session) '(plan-fn))
