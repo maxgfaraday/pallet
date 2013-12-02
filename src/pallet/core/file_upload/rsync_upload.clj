@@ -43,7 +43,7 @@
      (:username (admin-user session))
      (merge (-> (default-options session)
                 (select-keys [:rsync-path]))
-            {:chmod "600"}))))
+            {:chmod "go-w,go-r"}))))
 
 (defn rsync-upload
   "Create an instance of the rsync upload strategy."
